@@ -1,416 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>amazon.chitkara</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Clone</title>
 
-    <!-- Bootstrap CSS -->
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-    />
-    <!-- Bootstrap Icons (for cart icon) -->
-    <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-    />
+<style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family:Arial, sans-serif;
+    }
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
+    body{
+        background:#e3e6e6;
+        min-height:100vh;
+        display:flex;
+        flex-direction:column;
+    }
+
+    nav{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        background:#092456c4;
+        padding:15px 20px;
+        color:#fff;
+    }
+
+    .name{
+        font-size:1.4rem;
+        font-weight:bold;
+    }
+
+    .nav-links{
+        display:flex;
+        gap:20px;
+    }
+
+    .nav-links a{
+        text-decoration:none;
+        color:#fff;
+        transition:.3s;
+    }
+
+    .nav-links a:hover{
+        color:#ffd814;
+    }
+
+    .carousel-item img{
+        width:100%;
+        height:19vw;
+        max-height:420px;
+        object-fit:cover;
+        object-position:top;
+    }
+
+    @media(max-width:768px){
+        .carousel-item img{
+            height:45vw;
+            max-height:320px;
         }
-
-        body {
-            background: #e3e6e6;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+        nav{
+            flex-direction:column;
+            align-items:flex-start;
+            gap:10px;
         }
-
-        /* ---------- HEADER / NAV ---------- */
-        .nav-amazon {
-            background-color: #131921;
-            color: #fff;
-            padding: 8px 16px;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
+        .nav-links{
+            flex-direction:column;
         }
+    }
 
-        .nav-logo {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: #ffd814;
-            text-decoration: none;
-        }
+    .footer-main{
+        background:#232f3e;
+        color:#ddd;
+        padding:30px 0;
+        font-size:.85rem;
+        margin-top:auto;
+    }
 
-        .nav-logo span {
-            font-size: 0.9rem;
-            color: #fff;
-        }
+    .footer-main h6{
+        color:white;
+        font-size:.95rem;
+        margin-bottom:8px;
+    }
 
-        .nav-location {
-            display: flex;
-            flex-direction: column;
-            font-size: 0.8rem;
-            line-height: 1.1;
-        }
+    .footer-main ul{
+        list-style:none;
+        padding:0;
+    }
 
-        .nav-location span:first-child {
-            color: #ccc;
-        }
+    .footer-main ul li{
+        margin-bottom:5px;
+    }
 
-        .nav-location span:last-child {
-            font-weight: 700;
-        }
-
-        .nav-right {
-            margin-left: auto;
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            font-size: 0.85rem;
-        }
-
-        .nav-block {
-            display: flex;
-            flex-direction: column;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-
-        .nav-block span:first-child {
-            font-size: 0.75rem;
-            color: #ccc;
-        }
-
-        .nav-block span:last-child {
-            font-weight: 700;
-        }
-
-        .nav-cart {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .nav-cart i {
-            font-size: 1.4rem;
-        }
-
-        /* ---------- SECONDARY NAV BAR ---------- */
-        .nav-sub {
-            background-color: #232f3e;
-            color: #fff;
-            font-size: 0.9rem;
-            padding: 6px 18px;
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .nav-sub a {
-            color: #fff;
-            text-decoration: none;
-            padding: 4px 6px;
-        }
-
-        .nav-sub a:hover {
-            border: 1px solid #fff;
-            border-radius: 3px;
-        }
-
-        /* ---------- CAROUSEL ---------- */
-        .carousel-item img {
-            width: 100%;
-            height: 19vw;
-            max-height: 420px;
-            object-fit: cover;
-            object-position: top;
-        }
-
-        @media (max-width: 768px) {
-            .carousel-item img {
-                height: 45vw;
-                max-height: 320px;
-            }
-
-            .nav-right {
-                margin-left: 0;
-                width: 100%;
-                justify-content: flex-start;
-                flex-wrap: wrap;
-            }
-        }
-
-        /* ---------- MAIN CONTENT / CARDS ---------- */
-        .cards-section {
-            margin-top: -80px; /* pull cards over carousel like Amazon */
-            padding: 0 1rem 2rem;
-        }
-
-        @media (max-width: 768px) {
-            .cards-section {
-                margin-top: -30px;
-            }
-        }
-
-        .product-card {
-            background: #fff;
-            padding: 16px;
-            border-radius: 4px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
-            margin-bottom: 20px;
-            min-height: 260px;
-        }
-
-        .product-card h5 {
-            font-size: 1rem;
-            margin-bottom: 10px;
-        }
-
-        .product-grid img {
-            width: 100%;
-            border-radius: 4px;
-            margin-bottom: 8px;
-            object-fit: cover;
-        }
-
-        .product-link {
-            font-size: 0.85rem;
-            color: #007185;
-            text-decoration: none;
-        }
-
-        .product-link:hover {
-            color: #c7511f;
-            text-decoration: underline;
-        }
-
-        /* ---------- FOOTER ---------- */
-        .footer-main {
-            background: #232f3e;
-            color: #ddd;
-            padding: 30px 0;
-            font-size: 0.85rem;
-            margin-top: auto;
-        }
-
-        .footer-main h6 {
-            color: white;
-            font-size: 0.95rem;
-            margin-bottom: 8px;
-        }
-
-        .footer-main ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .footer-main ul li {
-            margin-bottom: 5px;
-        }
-
-        .footer-bottom {
-            background: #131a22;
-            color: #ddd;
-            text-align: center;
-            padding: 9px 0;
-            font-size: 0.8rem;
-        }
-    </style>
+    .footer-bottom{
+        background:#131a22;
+        color:#ddd;
+        text-align:center;
+        padding:9px 0;
+        font-size:.8rem;
+    }
+</style>
 </head>
 <body>
-    <!-- MAIN NAVBAR -->
-    <header>
-        <div class="nav-amazon">
-            <a href="#" class="nav-logo">
-                amazon<span>.chitkara</span>
-            </a>
 
-            <div class="nav-location d-none d-sm-flex">
-                <span>Deliver to</span>
-                <span>Chandigarh, India</span>
-            </div>
-
-            <div class="nav-right">
-                <div class="nav-block">
-                    <span>Hello, Hardik</span>
-                    <span>Account &amp; Lists</span>
-                </div>
-                <div class="nav-block d-none d-md-flex">
-                    <span>Returns</span>
-                    <span>&amp; Orders</span>
-                </div>
-                <div class="nav-cart">
-                    <i class="bi bi-cart3"></i>
-                    <span>Cart</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- SECONDARY NAV -->
-        <div class="nav-sub">
-            <a href="#">All</a>
-            <a href="#">Amazon miniTV</a>
-            <a href="#">Best Sellers</a>
-            <a href="#">Mobiles</a>
-            <a href="#">Fashion</a>
-            <a href="#">Electronics</a>
-            <a href="#">Prime</a>
-            <a href="#">Today's Deals</a>
-        </div>
-    </header>
-
-    <!-- CAROUSEL -->
-    <div
-        id="mainCarousel"
-        class="carousel slide"
-        data-bs-ride="carousel"
-        data-bs-interval="3000"
-    >
-        <div class="carousel-inner">
-            <!-- You can replace with your own images (online URLs or host in repo) -->
-            <div class="carousel-item active">
-                <img src="demo1.jpg" class="d-block w-100" alt="Banner 1" />
-            </div>
-            <div class="carousel-item">
-                <img src="demo2.jpg" class="d-block w-100" alt="Banner 2" />
-            </div>
-            <div class="carousel-item">
-                <img src="demo3.jpg" class="d-block w-100" alt="Banner 3" />
-            </div>
-        </div>
-
-        <button
-            class="carousel-control-prev"
-            type="button"
-            data-bs-target="#mainCarousel"
-            data-bs-slide="prev"
-        >
-            <span class="carousel-control-prev-icon"></span>
-        </button>
-        <button
-            class="carousel-control-next"
-            type="button"
-            data-bs-target="#mainCarousel"
-            data-bs-slide="next"
-        >
-            <span class="carousel-control-next-icon"></span>
-        </button>
+<nav>
+    <div class="name">Amazon :)</div>
+    <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Contact</a>
     </div>
+</nav>
 
-    <!-- PRODUCT / CATEGORY CARDS -->
-    <main class="cards-section">
-        <div class="container-fluid">
-            <div class="row g-3">
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="product-card">
-                        <h5>Up to 60% off | Electronics</h5>
-                        <div class="product-grid">
-                            <img
-                                src="https://m.media-amazon.com/images/I/71geVdy6-OS._SX522_.jpg"
-                                alt="Headphones"
-                            />
-                        </div>
-                        <a href="#" class="product-link">Shop now</a>
-                    </div>
-                </div>
-
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="product-card">
-                        <h5>Fashion &amp; Lifestyle</h5>
-                        <div class="product-grid">
-                            <img
-                                src="https://m.media-amazon.com/images/I/71xHq+3f3CL._SX679_.jpg"
-                                alt="Clothing"
-                            />
-                        </div>
-                        <a href="#" class="product-link">Explore styles</a>
-                    </div>
-                </div>
-
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="product-card">
-                        <h5>Student Essentials</h5>
-                        <div class="product-grid">
-                            <img
-                                src="https://m.media-amazon.com/images/I/61uA2UVnYWL._SX679_.jpg"
-                                alt="Laptop"
-                            />
-                        </div>
-                        <a href="#" class="product-link">See more</a>
-                    </div>
-                </div>
-
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="product-card">
-                        <h5>For your hostel room</h5>
-                        <div class="product-grid">
-                            <img
-                                src="https://m.media-amazon.com/images/I/71sBtM3Yi5L._SX522_.jpg"
-                                alt="Home items"
-                            />
-                        </div>
-                        <a href="#" class="product-link">Upgrade your space</a>
-                    </div>
-                </div>
-            </div>
+<div id="mainCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="demo1.jpg" class="d-block w-100">
         </div>
-    </main>
-
-    <!-- FOOTER -->
-    <div class="footer-main">
-        <div class="container">
-            <div class="row text-center text-md-start">
-                <div class="col-6 col-md-3 mb-3">
-                    <h6>Get to Know Us</h6>
-                    <ul>
-                        <li>About Us</li>
-                        <li>Careers</li>
-                        <li>Press Releases</li>
-                    </ul>
-                </div>
-                <div class="col-6 col-md-3 mb-3">
-                    <h6>Connect with Us</h6>
-                    <ul>
-                        <li>Facebook</li>
-                        <li>Twitter</li>
-                        <li>Instagram</li>
-                    </ul>
-                </div>
-                <div class="col-6 col-md-3 mb-3">
-                    <h6>Make Money with Us</h6>
-                    <ul>
-                        <li>Sell on amazon.chitkara</li>
-                        <li>Advertise Products</li>
-                        <li>Become Affiliate</li>
-                    </ul>
-                </div>
-                <div class="col-6 col-md-3 mb-3">
-                    <h6>Let Us Help You</h6>
-                    <ul>
-                        <li>Your Account</li>
-                        <li>Returns Centre</li>
-                        <li>Help</li>
-                    </ul>
-                </div>
-            </div>
+        <div class="carousel-item">
+            <img src="demo2.jpg" class="d-block w-100">
+        </div>
+        <div class="carousel-item">
+            <img src="demo3.jpg" class="d-block w-100">
         </div>
     </div>
 
-    <div class="footer-bottom">
-        © 2025 amazon.chitkara · Just a college project :)
-    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </button>
+</div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<div class="footer-main">
+    <div class="container">
+        <div class="row text-center text-md-start">
+            <div class="col-6 col-md-3 mb-3">
+                <h6>Get to Know Us</h6>
+                <ul>
+                    <li>About Us</li>
+                    <li>Careers</li>
+                    <li>Press Releases</li>
+                </ul>
+            </div>
+            <div class="col-6 col-md-3 mb-3">
+                <h6>Connect with Us</h6>
+                <ul>
+                    <li>Facebook</li>
+                    <li>Twitter</li>
+                    <li>Instagram</li>
+                </ul>
+            </div>
+            <div class="col-6 col-md-3 mb-3">
+                <h6>Make Money with Us</h6>
+                <ul>
+                    <li>Sell on Amazon</li>
+                    <li>Advertise Products</li>
+                    <li>Become Affiliate</li>
+                </ul>
+            </div>
+            <div class="col-6 col-md-3 mb-3">
+                <h6>Let Us Help You</h6>
+                <ul>
+                    <li>Your Account</li>
+                    <li>Returns Centre</li>
+                    <li>Help</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer-bottom">
+    © 2025 Amazon Clone Demo
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
